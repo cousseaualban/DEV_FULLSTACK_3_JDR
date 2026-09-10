@@ -1,38 +1,108 @@
-# jdr
+CAHIER DES CHARGES -- Répartition des tâches
 
-This template should help get you started developing with Vue 3 in Vite.
+Personne 1 — Modèle de données, stockage et import/export
+Responsable du cœur métier du projet. => ALBAN
 
-## Recommended IDE Setup
+Tâches :
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Définir les structures de données :
+campagne,
+chapitre,
+quête,
+joueur,
+lieu,
+objet,
+indice.
+Mettre en place les relations entre ces éléments.
+Créer le store Pinia ou la logique de données centralisée.
+Gérer la persistance navigateur avec localStorage ou IndexedDB.
+Implémenter l’import/export des campagnes au format .cplc.json.
+Livrables :
 
-## Recommended Browser Setup
+schéma de données cohérent,
+données persistantes,
+fichier JSON import/export fonctionnel.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+------------------------------------------------------------------------------
 
-## Customize configuration
+Personne 2 — Interface MJ : édition et administration
+Responsable de la zone de gestion du maître du jeu. => SAM
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Tâches :
 
-## Project Setup
+Construire l’interface d’édition MJ.
+Créer les vues et formulaires pour :
+campagnes,
+chapitres,
+quêtes,
+joueurs,
+contenus réutilisables.
+Gérer la création, modification, duplication, suppression.
+Gérer l’état d’une campagne active.
+Permettre la réorganisation des chapitres et des quêtes.
+Mettre en place la partie “contrôle de la campagne active” :
+changer l’état d’un chapitre,
+d’une quête,
+d’un joueur,
+donner/reprendre objets et indices.
+Livrables :
 
-```sh
-npm install
-```
+formulaire de campagne,
+formulaire de chapitre,
+formulaire de quête,
+gestion des joueurs et contenus.
 
-### Compile and Hot-Reload for Development
+------------------------------------------------------------------------------
 
-```sh
-npm run dev
-```
+Personne 3 — Interface joueur : lecture, progression et actions
+Responsable de l’expérience du joueur. => NGUYEN
 
-### Compile and Minify for Production
+Tâches :
 
-```sh
-npm run build
-```
+Construire l’interface lecture côté joueur.
+Afficher la progression globale :
+chapitres actifs/terminés,
+quêtes actives/terminées,
+détails des éléments.
+Implémenter la recherche et le filtre.
+Gérer la sélection du joueur courant.
+Afficher l’inventaire spécifique du joueur.
+Gérer les actions du joueur :
+déplacement dans un lieu,
+activation / résolution d’un chapitre,
+activation / résolution d’une quête avec mot de passe.
+Livrables :
+
+vue progression,
+vue inventaire,
+vue actions joueur,
+navigation entre lieux et pages.
+
+------------------------------------------------------------------------------
+
+Personne 4 — UI globale, routing, design et bonus
+Responsable de la cohérence visuelle et des points bonus. => ILEF
+
+Tâches :
+
+Définir la structure générale de l’application.
+Mettre en place les routes Vue Router entre :
+interface MJ,
+interface joueur,
+vues de sélection / lecture / édition.
+Créer la charte graphique minimale :
+thème visuel,
+composants réutilisables,
+CSS global.
+S’occuper du design responsive.
+Ajouter un bonus éventuel :
+timeline des quêtes,
+vue graphe,
+import/export chiffré,
+génération d’objets ou lieux.
+Livrables :
+
+structure de navigation,
+CSS global,
+interface élégante et cohérente,
+bonus éventuels.
