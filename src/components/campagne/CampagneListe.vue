@@ -1,5 +1,6 @@
 <script setup>
 import CampagneModalModification from './CampagneModalModification.vue';
+import CampagneOrgaChapitre from './CampagneOrgaChapitre.vue';
 
 
 const props = defineProps({
@@ -52,6 +53,7 @@ function modifier(campagne) {
                 <td>
                     <button type="button" @click="supprimer(campagne.id)">Supprimer</button>
                     <button type="button" @click="dupliquer(campagne)">Dupliquer</button>
+                    <CampagneOrgaChapitre :chapitres="campagne.chapitres" />
                     <CampagneModalModification @modifier="modifier" :campagne></CampagneModalModification>
                 </td>
             </tr>

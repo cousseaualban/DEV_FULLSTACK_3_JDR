@@ -4,7 +4,7 @@ import Modal from '../Modal.vue';
 
 const emit = defineEmits(['sauvegarde']);
 
-const campagneParDefault = { nom: '', etat: '', description: '', commentaire: '' }
+const campagneParDefault = { nom: '', etat: '', description: '', commentaire: '', chapitres: [] }
 const etats = ['active', 'disponible', 'brouillon'];
 
 const modal = ref()

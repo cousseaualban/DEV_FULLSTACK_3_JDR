@@ -1,11 +1,10 @@
 import CampagneView from "@/views/CampagneView.vue";
+import ChapitreView from "@/views/ChapitreView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
-  { path: '/', children: [
-    { path: '', name: 'campagne', component: CampagneView }
-  ]}
-  
+  { path: '/', name: 'campagne', component: CampagneView },
+  { path: '/chapitres', name: 'chapitre', component: ChapitreView}
 ];
 
 const router = createRouter({
