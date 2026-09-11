@@ -1,11 +1,22 @@
-<script setup></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="app">
+    <Navbar />
+
+    <main class="main-content">
+      <RouterView />
+    </main>
+  </div>
 </template>
 
-<style scoped></style>
+<script setup>
+import Navbar from './components/Navbar.vue'
+</script>
+
+<style>
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+}
+</style>
+
