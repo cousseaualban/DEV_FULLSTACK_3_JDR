@@ -1,3 +1,8 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+import HomeView from '../views/HomeView.vue'
+import MjHomeView from '../views/mj/MjHomeView.vue'
+import PlayerHomeView from '../views/player/PlayerHomeView.vue'
 import CampagneDetail from "@/components/campagne/CampagneDetail.vue";
 import CampagneListe from "@/components/campagne/CampagneListe.vue";
 import ChapitreDetail from "@/components/chapitre/ChapitreDetail.vue";
@@ -15,40 +20,51 @@ import ChapitreView from "@/views/ChapitreView.vue";
 import ContenuView from "@/views/ContenuView.vue";
 import JoueurView from "@/views/JoueurView.vue";
 import QueteView from "@/views/QueteView.vue";
-import { createRouter, createWebHistory } from "vue-router";
-
-const routes = [
-  { path: '/', component: CampagneView, children: [
-    { path: '', name: 'liste-campagne', component: CampagneListe },
-    { path: 'detail/:idCampagne', name: 'detail-campagne', component: CampagneDetail, children: [
-      { path: 'contenu', component: ContenuView, children: [
-        { path: '', name: 'liste-contenu', component: ContenuListe },
-        { path: 'detail-objet/:idObjet', name: 'detail-objet', component: ObjetDetail },
-        { path: 'detail-lieu/:idLieu', name: 'detail-lieu', component: LieuDetail },
-        { path: 'detail-indice/:idIndice', name: 'detail-indice', component: IndiceDetail }
-      ] },
-      { path: 'chapitre', component: ChapitreView, children: [
-        { path: '', name: 'liste-chapitre', component: ChapitreListe },
-        { path: 'detail/:idChapitre', name: 'detail-chapitre', component: ChapitreDetail, children: [
-          { path: 'quete', component: QueteView, children: [
-            { path: '', name: 'liste-quete', component: QueteListe },
-            { path: 'detail/:idQuete', name: 'detail-quete', component: QueteDetail}
-          ] }
-        ] }
-      ]},
-      { path: 'joueur', component: JoueurView, children: [
-        { path: '', name: 'liste-joueur', component: JoueurListe },
-        { path: 'detail/:idJoueur', name: 'detail-joueur', component: JoueurDetail }
-      ]}
-    ]}
-  ] },
-];
 
 const router = createRouter({
-  // Le mode de navigation - createWebHistory pour une navigation type html5
   history: createWebHistory(),
-  // La liste des routes
-  routes,
-});
 
-export default router;
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/mj',
+      name: 'mj',
+      component: MjHomeView
+    },
+    {
+      path: '/player',
+      name: 'player',
+      component: PlayerHomeView
+    },
+    { path: '/campagne', component: CampagneView, children: [
+      { path: '', name: 'liste-campagne', component: CampagneListe },
+      { path: 'detail/:idCampagne', name: 'detail-campagne', component: CampagneDetail, children: [
+        { path: 'contenu', component: ContenuView, children: [
+          { path: '', name: 'liste-contenu', component: ContenuListe },
+          { path: 'detail-objet/:idObjet', name: 'detail-objet', component: ObjetDetail },
+          { path: 'detail-lieu/:idLieu', name: 'detail-lieu', component: LieuDetail },
+          { path: 'detail-indice/:idIndice', name: 'detail-indice', component: IndiceDetail }
+        ] },
+        { path: 'chapitre', component: ChapitreView, children: [
+          { path: '', name: 'liste-chapitre', component: ChapitreListe },
+          { path: 'detail/:idChapitre', name: 'detail-chapitre', component: ChapitreDetail, children: [
+            { path: 'quete', component: QueteView, children: [
+              { path: '', name: 'liste-quete', component: QueteListe },
+              { path: 'detail/:idQuete', name: 'detail-quete', component: QueteDetail}
+            ] }
+          ] }
+        ]},
+        { path: 'joueur', component: JoueurView, children: [
+          { path: '', name: 'liste-joueur', component: JoueurListe },
+          { path: 'detail/:idJoueur', name: 'detail-joueur', component: JoueurDetail }
+        ]}
+      ]}
+    ] },
+  ]
+})
+
+export default router

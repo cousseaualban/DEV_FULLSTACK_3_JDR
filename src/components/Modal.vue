@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import AppButton from './AppButton.vue'
 
 const ouverte = ref(false)
 const emit = defineEmits(['ouvrir'])
@@ -20,15 +21,15 @@ defineExpose({
 </script>
 
 <template>
-  <button type="button" @click="ouvrir">
+  <AppButton @click="ouvrir">
     <slot name="button">Ouvrir</slot>
-  </button>
+  </AppButton>
 
   <div v-if="ouverte" class="overlay">
     <div class="modal">
-      <button class="close" @click="fermer">
+      <AppButton class="close" @click="fermer">
         X
-      </button>
+      </AppButton>
 
       <slot></slot>
     </div>

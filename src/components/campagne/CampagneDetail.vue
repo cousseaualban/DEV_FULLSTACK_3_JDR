@@ -2,6 +2,7 @@
 import useCampagneStore from '@/stores/campagne';
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import AppButton from '../AppButton.vue';
 
 const router = useRouter();
 const route = useRoute()
@@ -40,7 +41,7 @@ function modifier({ target }) {
         <br>
         <label>Commentaire<textarea name="commentaire_MJ" :value="campagne.commentaire_MJ" required></textarea></label>
         <br>
-        <button type="submit">Enregister</button>
+        <AppButton type="submit">Enregister</AppButton>
     </form>
     <hr>
     <nav>

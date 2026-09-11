@@ -2,6 +2,7 @@
 import useCampagneStore from '@/stores/campagne.js';;
 import CampagneModalAjout from './CampagneModalAjout.vue';
 import { useRouter } from 'vue-router';
+import AppButton from '../AppButton.vue';
 
 const router = useRouter()
 
@@ -35,9 +36,9 @@ function navigation(id) {
                 <td>{{ campagne.description }}</td>
                 <td>{{ campagne.commentaire_MJ }}</td>
                 <td>
-                    <button type="button" @click="store.supprimerCampagne(campagne.id)">Supprimer</button>
-                    <button type="button" @click="store.dupliquerCampagne(campagne.id)">Dupliquer</button>
-                    <button type="button" @click="navigation(campagne.id)">Detail</button>
+                    <AppButton @click="store.supprimerCampagne(campagne.id)">Supprimer</AppButton>
+                    <AppButton @click="store.dupliquerCampagne(campagne.id)">Dupliquer</AppButton>
+                    <AppButton @click="navigation(campagne.id)">Detail</AppButton>
                 </td>
             </tr>
         </tbody>
