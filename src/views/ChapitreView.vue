@@ -17,5 +17,5 @@ function ajouter(chapitre) {
 <template>
     <h1>Chapitres</h1>
     <ChapitreModalAjout @sauvegarde="ajouter"/>
-    <ChapitreListe :chapitres />
+    <ChapitreListe :chapitres="chapitres" />
 </template>

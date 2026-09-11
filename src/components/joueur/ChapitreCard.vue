@@ -15,7 +15,12 @@ defineProps({
 
     <p>{{ chapitre.description }}</p>
 
-    <RouterLink :to="`/joueur/chapitres/${chapitre.id}`">
+    <RouterLink
+      :to="{
+        name: 'joueur-chapitre-detail',
+        params: { id: chapitre.id },
+      }"
+    >
       Voir le chapitre
     </RouterLink>
   </article>

@@ -11,9 +11,7 @@ const props = defineProps({
 
 const lieuStore = useLieuStore();
 
-const lieu = computed(() =>
-  lieuStore.lieuSpecifique(props.quete.lieu_id),
-);
+const lieu = computed(() => lieuStore.lieuSpecifique(props.quete.lieu_id));
 
 const indicateurStatut = computed(() => {
   if (props.quete.statut === "active") {
@@ -22,7 +20,6 @@ const indicateurStatut = computed(() => {
 
   if (props.quete.statut === "terminee") {
     return "✅";
- "✅";
   }
 
   return "⏸️";
@@ -45,7 +42,12 @@ const indicateurStatut = computed(() => {
       {{ lieu?.nom ?? "Non renseigné" }}
     </p>
 
-    <RouterLink :to="`/joueur/quetes/${quete.id}`">
+    <RouterLink
+      :to="{
+        name: 'joueur-quete-detail',
+        params: { id: quete.id },
+      }"
+    >
       Voir la quête
     </RouterLink>
   </article>
