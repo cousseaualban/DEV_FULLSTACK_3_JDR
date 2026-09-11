@@ -8,6 +8,8 @@ import { computed } from 'vue';
 import ObjetModalAjout from './ObjetModalAjout.vue';
 import LieuModalAjout from './LieuModalAjout.vue';
 import IndiceModalAjout from './IndiceModalAjout.vue';
+import AppButton from '../AppButton.vue';
+import AppTable from '../AppTable.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -63,6 +65,16 @@ function navigation(id, type) {
     }
 }
 
+
+const columns = [
+    { key: 'id', label: 'ID' },
+    { key: 'nom', label: 'Nom' },
+    { key: 'description', label: 'Description' },
+    { key: 'commentaire_MJ', label: 'Commentaire MJ' },
+    { key: 'type', label: 'Type' },
+    { key: 'actions', label: 'Actions' }
+]
+
 </script>
 
 <template>
@@ -70,30 +82,11 @@ function navigation(id, type) {
     <LieuModalAjout @sauvegarde="storeLieu.ajouterLieu" :id-campagne="route.params.idCampagne" />
     <IndiceModalAjout @sauvegarde="storeIndice.ajouterIndice" :id-campagne="route.params.idCampagne" />
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Commentaire</th>
-                <th>Type</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="contenu in listeComplete">
-                <td>{{ contenu.id }}</td>
-                <td>{{ contenu.nom }}</td>
-                <td>{{ contenu.description }}</td>
-                <td>{{ contenu.commentaire_MJ }}</td>
-                <td>{{ contenu.type }}</td>
-                <td>
-                    <button type="button" @click="supprimerContenu(contenu.id, contenu.type)">Supprimer</button>
-                    <button type="button" @click="dupliquerContenu(contenu.id, contenu.type)">Dupliquer</button>
-                    <button type="button" @click="navigation(contenu.id, contenu.type)">Detail</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <AppTable :columns :rows="listeComplete">
+        <template #cell-actions="{ row }">
+            <AppButton @click="supprimerContenu(row.id, row.type)">Supprimer</AppButton>
+            <AppButton @click="dupliquerContenu(row.id, row.type)">Dupliquer</AppButton>
+            <AppButton @click="navigation(row.id, row.type)">Detail</AppButton>
+        </template>
+    </AppTable>
 </template>

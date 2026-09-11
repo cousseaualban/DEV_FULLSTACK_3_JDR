@@ -4,6 +4,7 @@ import Modal from '../Modal.vue';
 import useObjetStore from '@/stores/objet.js';
 import SelecteurMultiple from '../SelecteurMultiple.vue';
 import useIndiceStore from '@/stores/indice.js';
+import AppButton from '../AppButton.vue';
 
 const emit = defineEmits(['sauvegarde']);
 
@@ -87,9 +88,9 @@ function gererSubmit({ target }) {
         </label>
         <br>
 
-        <button type="submit">
+        <AppButton type="submit">
             Ajouter
-        </button>
+        </AppButton>
         </form>
 
     </Modal>

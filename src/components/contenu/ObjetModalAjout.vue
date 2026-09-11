@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import Modal from '../Modal.vue';
+import AppButton from '../AppButton.vue';
 
 const { idCampagne } = defineProps({
     idCampagne: {
@@ -48,9 +49,9 @@ function gererSubmit() {
         <label>Commentaire<textarea v-model="nouveauObjet.commentaire_MJ" required></textarea></label>
         <br>
 
-        <button type="submit">
+        <AppButton type="submit">
             Ajouter
-        </button>
+        </AppButton>
         </form>
 
     </Modal>

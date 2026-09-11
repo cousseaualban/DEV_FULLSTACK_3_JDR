@@ -3,6 +3,8 @@ import { useRoute, useRouter } from 'vue-router';
 import useJoueurStore from '@/stores/joueur.js';
 import { computed } from 'vue';
 import JoueurModalAjout from './JoueurModalAjout.vue';
+import AppButton from '../AppButton.vue';
+import AppTable from '../AppTable.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -14,32 +16,23 @@ const joueurs = computed(() => (store.joueursCampagne(route.params.idCampagne)))
 function navigation(id) {
   router.push({ name: 'detail-joueur', params: { idJoueur: id, idCampagne: route.params.idCampagne } });
 }
+
+const columns = [
+    { key: 'id', label: 'ID' },
+    { key: 'nom', label: 'Nom' },
+    { key: 'description', label: 'Description' },
+    { key: 'commentaire_MJ', label: 'Commentaire' },
+    { key: 'actions', label: 'Actions' }
+]
 </script>
 
 <template>
     <JoueurModalAjout @sauvegarde="store.ajouterJoueur" :id-campagne="route.params.idCampagne"/>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Commentaire</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="joueur in joueurs">
-                <td>{{ joueur.id }}</td>
-                <td>{{ joueur.nom }}</td>
-                <td>{{ joueur.description }}</td>
-                <td>{{ joueur.commentaire_MJ }}</td>
-                <td>
-                    <button type="button" @click="store.supprimerJoueur(joueur.id)">Supprimer</button>
-                    <button type="button" @click="store.dupliquerJoueur(joueur.id)">Dupliquer</button>
-                    <button type="button" @click="navigation(joueur.id)">Detail</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <AppTable :columns :rows="joueurs">
+        <template #cell-actions="{ row }">
+            <AppButton @click="store.supprimerJoueur(row.id)">Supprimer</AppButton>
+            <AppButton @click="store.dupliquerJoueur(row.id)">Dupliquer</AppButton>
+            <AppButton @click="navigation(row.id)">Detail</AppButton>
+        </template>
+    </AppTable>
 </template>

@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import Modal from '../Modal.vue';
 import useLieuStore from '@/stores/lieu.js';
+import AppButton from '../AppButton.vue';
 
 const { idCampagne } = defineProps({
     idCampagne: {
@@ -59,9 +60,9 @@ function gererSubmit() {
             </select>
         </label>
         <br>
-        <button type="submit">
+        <AppButton type="submit">
             Ajouter
-        </button>
+        </AppButton>
         </form>
 
     </Modal>

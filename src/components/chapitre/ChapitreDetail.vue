@@ -5,6 +5,7 @@ import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import SelecteurMultiple from '../SelecteurMultiple.vue';
 import useIndiceStore from '@/stores/indice.js';
+import AppButton from '../AppButton.vue';
 
 const router = useRouter();
 const route = useRoute()
@@ -69,9 +70,9 @@ function modifier({ target }) {
         </label>
         <br>
 
-        <button type="submit">
+        <AppButton type="submit">
             Enregister
-        </button>
+        </AppButton>
     </form>
 
     <hr>

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import Modal from '../Modal.vue';
+import AppButton from '../AppButton.vue';
 
 const emit = defineEmits(['sauvegarde']);
 
@@ -35,23 +36,23 @@ function gererSubmit() {
         <h2>Nouvelle Campagne</h2>
 
         <form @submit.prevent="gererSubmit">
-        <label>Nom<input v-model="nouvelleCampagne.nom" type="text" required></label>
-        <br>
-        <label>Etat
-            <select v-model="nouvelleCampagne.statut" required>
-            <option value="" disabled>---</option>
-            <option v-for="etat in etats" :value="etat">{{ etat }}</option>
-            </select>
-        </label>
-        <br>
-        <label>Description<textarea v-model="nouvelleCampagne.description" required></textarea></label>
-        <br>
-        <label>Commentaire<textarea v-model="nouvelleCampagne.commentaire_MJ" required></textarea></label>
-        <br>
+            <label>Nom<input v-model="nouvelleCampagne.nom" type="text" required></label>
+            <br>
+            <label>Etat
+                <select v-model="nouvelleCampagne.statut" required>
+                <option value="" disabled>---</option>
+                <option v-for="etat in etats" :value="etat">{{ etat }}</option>
+                </select>
+            </label>
+            <br>
+            <label>Description<textarea v-model="nouvelleCampagne.description" required></textarea></label>
+            <br>
+            <label>Commentaire<textarea v-model="nouvelleCampagne.commentaire_MJ" required></textarea></label>
+            <br>
 
-        <button type="submit">
-            Ajouter
-        </button>
+            <AppButton type="submit">
+                Ajouter
+            </AppButton>
         </form>
 
     </Modal>

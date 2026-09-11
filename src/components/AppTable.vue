@@ -21,7 +21,12 @@
             v-for="column in columns"
             :key="column.key"
           >
-            {{ row[column.key] }}
+            <slot
+              :name="`cell-${column.key}`"
+              :row="row"
+            >
+              {{ row[column.key] }}
+            </slot>
           </td>
         </tr>
 

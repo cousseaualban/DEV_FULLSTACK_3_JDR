@@ -6,6 +6,7 @@ import useQueteStore from '@/stores/quete';
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import SelecteurMultiple from '../SelecteurMultiple.vue';
+import AppButton from '../AppButton.vue';
 
 const router = useRouter();
 const route = useRoute()
@@ -86,6 +87,8 @@ function modifier({ target }) {
             <SelecteurMultiple name="recompenses_indices" :value="quete.recompenses_indices" :elements="listeIndices"/>
         </label>
         <br>
-        <button type="submit">Enregister</button>
+        <AppButton type="submit">
+            Enregister
+        </AppButton>
     </form>
 </template>
