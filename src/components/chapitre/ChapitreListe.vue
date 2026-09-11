@@ -10,35 +10,6 @@ const store = useChapitreStore()
 
 const chapitres = computed(() => (store.chapitresCampagne(route.params.idCampagne)))
 
-function dupliquer(chapitre) {
-    const {
-        campagne_id,
-        nom,
-        statut,
-        description,
-        commentaire_MJ,
-        mdp_activation,
-        objets_necessaires,
-        mdp_resolution,
-        recompenses_objets,
-        recompenses_indices,
-        ordre,
-    } = chapitre
-    store.ajouterChapitre(
-        campagne_id,
-        nom,
-        statut,
-        description,
-        commentaire_MJ,
-        mdp_activation,
-        objets_necessaires,
-        mdp_resolution,
-        recompenses_objets,
-        recompenses_indices,
-        ordre,
-    )
-}
-
 function navigation(id) {
     router.push({ name: 'detail-chapitre', params: { idChapitre: id, idCampagne: route.params.idCampagne } })
 }
@@ -72,7 +43,7 @@ function navigation(id) {
                 <td>{{ chapitre.mdp_resolution }}</td>
                 <td>
                     <button type="button" @click="store.supprimerChapitre(chapitre.id)">Supprimer</button>
-                    <button type="button" @click="dupliquer(chapitre)">Dupliquer</button>
+                    <button type="button" @click="store.dupliquerChapitre(chapitre.id)">Dupliquer</button>
                     <button type="button" @click="navigation(chapitre.id)">Detail</button>
                 </td>
             </tr>

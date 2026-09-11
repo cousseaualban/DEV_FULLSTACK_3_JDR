@@ -67,6 +67,23 @@ const useJoueurStore = defineStore('joueur', () => {
     joueur.commentaire_MJ = commentaire_MJ;
   }
 
+  function dupliquerJoueur(id) {
+    const joueur = _trouverJoueur(id);
+
+    if (!joueur) {
+      return;
+    }
+
+    const nouveauJoueur = {
+      ...joueur,
+      id: crypto.randomUUID(),
+      inventaire_objets: [...joueur.inventaire_objets],
+      inventaire_indices: [...joueur.inventaire_indices],
+    };
+
+    liste.value.push(nouveauJoueur);
+  }
+
   function supprimerJoueur(id) {
     const index = liste.value.findIndex(({ id: joueurId }) => (joueurId === id));
 
@@ -188,6 +205,7 @@ const useJoueurStore = defineStore('joueur', () => {
     joueursDansLieu,
     ajouterJoueur,
     modifierJoueur,
+    dupliquerJoueur,
     supprimerJoueur,
     changerStatutJoueur,
     deplacerJoueur,

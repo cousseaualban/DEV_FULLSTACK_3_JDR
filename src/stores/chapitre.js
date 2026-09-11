@@ -20,7 +20,6 @@ const useChapitreStore = defineStore('chapitre', () => {
   const chapitresCampagne = computed(() => (
     (campagneId) => liste.value
       .filter(({ campagne_id }) => (campagne_id === campagneId))
-      .sort((chapitreA, chapitreB) => (chapitreA.ordre - chapitreB.ordre))
   ));
 
   // - Actions
@@ -35,7 +34,6 @@ const useChapitreStore = defineStore('chapitre', () => {
     mdp_resolution,
     recompenses_objets,
     recompenses_indices,
-    ordre,
   ) {
     const nouveauChapitre = {
       id: crypto.randomUUID(),
@@ -49,7 +47,6 @@ const useChapitreStore = defineStore('chapitre', () => {
       mdp_resolution,
       recompenses_objets,
       recompenses_indices,
-      ordre,
     };
 
     liste.value.push(nouveauChapitre);
@@ -82,6 +79,24 @@ const useChapitreStore = defineStore('chapitre', () => {
     chapitre.recompenses_indices = recompenses_indices;
   }
 
+  function dupliquerChapitre(id) {
+    const chapitre = _trouverChapitre(id);
+
+    if (!chapitre) {
+      return;
+    }
+
+    const nouveauChapitre = {
+      ...chapitre,
+      id: crypto.randomUUID(),
+      objets_necessaires: [...chapitre.objets_necessaires],
+      recompenses_objets: [...chapitre.recompenses_objets],
+      recompenses_indices: [...chapitre.recompenses_indices],
+    };
+
+    liste.value.push(nouveauChapitre);
+  }
+
   function supprimerChapitre(id) {
     const index = liste.value.findIndex(({ id: chapitreId }) => (chapitreId === id));
 
@@ -102,54 +117,6 @@ const useChapitreStore = defineStore('chapitre', () => {
     chapitre.statut = statut;
   }
 
-  function monterChapitre(id) {
-    const chapitre = _trouverChapitre(id);
-
-    if (!chapitre) {
-      return;
-    }
-
-    const chapitres = liste.value
-      .filter(({ campagne_id }) => (campagne_id === chapitre.campagne_id))
-      .sort((chapitreA, chapitreB) => (chapitreA.ordre - chapitreB.ordre));
-
-    const index = chapitres.findIndex(({ id: chapitreId }) => (chapitreId === id));
-
-    if (index <= 0) {
-      return;
-    }
-
-    const chapitrePrecedent = chapitres[index - 1];
-    const ordreChapitre = chapitre.ordre;
-
-    chapitre.ordre = chapitrePrecedent.ordre;
-    chapitrePrecedent.ordre = ordreChapitre;
-  }
-
-  function descendreChapitre(id) {
-    const chapitre = _trouverChapitre(id);
-
-    if (!chapitre) {
-      return;
-    }
-
-    const chapitres = liste.value
-      .filter(({ campagne_id }) => (campagne_id === chapitre.campagne_id))
-      .sort((chapitreA, chapitreB) => (chapitreA.ordre - chapitreB.ordre));
-
-    const index = chapitres.findIndex(({ id: chapitreId }) => (chapitreId === id));
-
-    if (index === -1 || index >= chapitres.length - 1) {
-      return;
-    }
-
-    const chapitreSuivant = chapitres[index + 1];
-    const ordreChapitre = chapitre.ordre;
-
-    chapitre.ordre = chapitreSuivant.ordre;
-    chapitreSuivant.ordre = ordreChapitre;
-  }
-
   // - Watcher
   watch(
     liste,
@@ -166,10 +133,9 @@ const useChapitreStore = defineStore('chapitre', () => {
     chapitresCampagne,
     ajouterChapitre,
     modifierChapitre,
+    dupliquerChapitre,
     supprimerChapitre,
     changerStatutChapitre,
-    monterChapitre,
-    descendreChapitre,
   };
 });
 

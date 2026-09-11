@@ -7,11 +7,6 @@ const router = useRouter()
 
 const store = useCampagneStore()
 
-function dupliquer(campagne) {
-    const { nom, statut, description, commentaire_MJ } = campagne
-    store.ajouterCampagne(nom, statut, description, commentaire_MJ)
-}
-
 function navigation(id) {
   router.push({ name: 'liste-chapitre', params: {idCampagne: id} });
 }
@@ -41,7 +36,7 @@ function navigation(id) {
                 <td>{{ campagne.commentaire_MJ }}</td>
                 <td>
                     <button type="button" @click="store.supprimerCampagne(campagne.id)">Supprimer</button>
-                    <button type="button" @click="dupliquer(campagne)">Dupliquer</button>
+                    <button type="button" @click="store.dupliquerCampagne(campagne.id)">Dupliquer</button>
                     <button type="button" @click="navigation(campagne.id)">Detail</button>
                 </td>
             </tr>

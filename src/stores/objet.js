@@ -57,6 +57,21 @@ const useObjetStore = defineStore('objet', () => {
     objet.commentaire_MJ = commentaire_MJ;
   }
 
+  function dupliquerObjet(id) {
+    const objet = _trouverObjet(id);
+
+    if (!objet) {
+      return;
+    }
+
+    const nouvelObjet = {
+      ...objet,
+      id: crypto.randomUUID(),
+    };
+
+    liste.value.push(nouvelObjet);
+  }
+
   function supprimerObjet(id) {
     const index = liste.value.findIndex(({ id: objetId }) => (objetId === id));
 
@@ -83,6 +98,7 @@ const useObjetStore = defineStore('objet', () => {
     objetsCampagne,
     ajouterObjet,
     modifierObjet,
+    dupliquerObjet,
     supprimerObjet,
   };
 });

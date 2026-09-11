@@ -30,8 +30,7 @@ function gererSubmit() {
         [],
         nouveauChapitre.value.mdp_resolution,
         [],
-        [],
-        ''
+        []
     );
     nouveauChapitre.value = { ...chapitreParDefault }
     modal.value.fermer()
