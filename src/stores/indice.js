@@ -57,6 +57,21 @@ const useIndiceStore = defineStore('indice', () => {
     indice.commentaire_MJ = commentaire_MJ;
   }
 
+  function dupliquerIndice(id) {
+    const indice = _trouverIndice(id);
+
+    if (!indice) {
+      return;
+    }
+
+    const nouvelIndice = {
+      ...indice,
+      id: crypto.randomUUID(),
+    };
+
+    liste.value.push(nouvelIndice);
+  }
+
   function supprimerIndice(id) {
     const index = liste.value.findIndex(({ id: indiceId }) => (indiceId === id));
 
@@ -83,6 +98,7 @@ const useIndiceStore = defineStore('indice', () => {
     indicesCampagne,
     ajouterIndice,
     modifierIndice,
+    dupliquerIndice,
     supprimerIndice,
   };
 });

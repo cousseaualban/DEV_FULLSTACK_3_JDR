@@ -46,6 +46,22 @@ const useCampagneStore = defineStore('campagne', () => {
     campagne.commentaire_MJ = commentaire_MJ;
   }
 
+  function dupliquerCampagne(id) {
+    const campagne = _trouverCampagne(id);
+
+    if (!campagne) {
+      return;
+    }
+
+    const nouvelleCampagne = {
+      ...campagne,
+      id: crypto.randomUUID(),
+      statut: campagne.statut === 'active' ? 'brouillon' : campagne.statut,
+    };
+
+    liste.value.push(nouvelleCampagne);
+  }
+
   function supprimerCampagne(id) {
     const index = liste.value.findIndex(({ id: campagneId }) => (campagneId === id));
 
@@ -88,6 +104,7 @@ const useCampagneStore = defineStore('campagne', () => {
     campagneActive,
     ajouterCampagne,
     modifierCampagne,
+    dupliquerCampagne,
     supprimerCampagne,
     definirCampagneActive,
   };
