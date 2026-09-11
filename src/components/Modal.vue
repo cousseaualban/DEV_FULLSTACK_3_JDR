@@ -20,7 +20,7 @@ defineExpose({
 </script>
 
 <template>
-  <button @click="ouvrir">
+  <button type="button" @click="ouvrir">
     <slot name="button">Ouvrir</slot>
   </button>
 

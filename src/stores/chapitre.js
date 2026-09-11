@@ -27,6 +27,7 @@ const useChapitreStore = defineStore('chapitre', () => {
   function ajouterChapitre(
     campagne_id,
     nom,
+    statut,
     description,
     commentaire_MJ,
     mdp_activation,
@@ -40,7 +41,7 @@ const useChapitreStore = defineStore('chapitre', () => {
       id: crypto.randomUUID(),
       campagne_id,
       nom,
-      statut: 'inactif',
+      statut: statut ?? 'inactif',
       description,
       commentaire_MJ,
       mdp_activation,

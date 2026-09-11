@@ -4,7 +4,7 @@ import Modal from '../Modal.vue';
 
 const emit = defineEmits(['sauvegarde']);
 
-const campagneParDefault = { nom: '', etat: '', description: '', commentaire: '', chapitres: [] }
+const campagneParDefault = { nom: '', statut: '', description: '', commentaire_MJ: ''}
 const etats = ['active', 'disponible', 'brouillon'];
 
 const modal = ref()
@@ -14,7 +14,10 @@ const nouvelleCampagne = ref({ ...campagneParDefault })
 function gererSubmit() {
     emit(
         'sauvegarde',
-        nouvelleCampagne.value,
+        nouvelleCampagne.value.nom,
+        nouvelleCampagne.value.statut,
+        nouvelleCampagne.value.description,
+        nouvelleCampagne.value.commentaire_MJ
     );
     nouvelleCampagne.value = { ...campagneParDefault }
     modal.value.fermer()
@@ -35,7 +38,7 @@ function gererSubmit() {
         <label>Nom<input v-model="nouvelleCampagne.nom" type="text" required></label>
         <br>
         <label>Etat
-            <select v-model="nouvelleCampagne.etat" required>
+            <select v-model="nouvelleCampagne.statut" required>
             <option value="" disabled>---</option>
             <option v-for="etat in etats" :value="etat">{{ etat }}</option>
             </select>
@@ -43,7 +46,7 @@ function gererSubmit() {
         <br>
         <label>Description<textarea v-model="nouvelleCampagne.description" required></textarea></label>
         <br>
-        <label>Commentaire<textarea v-model="nouvelleCampagne.commentaire" required></textarea></label>
+        <label>Commentaire<textarea v-model="nouvelleCampagne.commentaire_MJ" required></textarea></label>
         <br>
 
         <button type="submit">

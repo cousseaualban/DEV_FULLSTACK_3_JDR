@@ -1,36 +1,53 @@
 <script setup>
-import ChapitreModalModification from './ChapitreModalModification.vue';
+import useChapitreStore from '@/stores/chapitre.js';
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import ChapitreModalAjout from '../chapitre/ChapitreModalAjout.vue';
 
+const router = useRouter()
+const route = useRoute()
+const store = useChapitreStore()
 
-const props = defineProps({
-    chapitres: {
-        type: Array,
-        required: true
-    }
-})
-
-function supprimer(id) {
-    const chapitreIndex = props.chapitres.findIndex(({ id: fId }) => (fId === id));
-
-    props.chapitres.splice(chapitreIndex, 1)
-}
+const chapitres = computed(() => (store.chapitresCampagne(route.params.idCampagne)))
 
 function dupliquer(chapitre) {
-    props.chapitres.push({
-        ...chapitre,
-        id: crypto.randomUUID()
-    })
+    const {
+        campagne_id,
+        nom,
+        statut,
+        description,
+        commentaire_MJ,
+        mdp_activation,
+        objets_necessaires,
+        mdp_resolution,
+        recompenses_objets,
+        recompenses_indices,
+        ordre,
+    } = chapitre
+    store.ajouterChapitre(
+        campagne_id,
+        nom,
+        statut,
+        description,
+        commentaire_MJ,
+        mdp_activation,
+        objets_necessaires,
+        mdp_resolution,
+        recompenses_objets,
+        recompenses_indices,
+        ordre,
+    )
 }
 
-function modifier(chapitre) {
-    const index = props.chapitres.findIndex(c => c.id === chapitre.id)
-
-    props.chapitres[index] = chapitre
+function navigation(id) {
+    router.push({ name: 'detail-chapitre', params: { idChapitre: id, idCampagne: route.params.idCampagne } })
 }
 
 </script>
 
 <template>
+    <ChapitreModalAjout @sauvegarde="store.ajouterChapitre" :id-campagne="route.params.idCampagne" />
+
     <table border="1">
         <thead>
             <tr>
@@ -45,18 +62,18 @@ function modifier(chapitre) {
             </tr>
         </thead>
         <tbody>
-            <tr v-for="chapitre in props.chapitres">
+            <tr v-for="chapitre in chapitres">
                 <td>{{ chapitre.id }}</td>
                 <td>{{ chapitre.nom }}</td>
-                <td>{{ chapitre.etat }}</td>
+                <td>{{ chapitre.statut }}</td>
                 <td>{{ chapitre.description }}</td>
-                <td>{{ chapitre.commentaire }}</td>
-                <td>{{ chapitre.mdpAct }}</td>
-                <td>{{ chapitre.mdpRes }}</td>
+                <td>{{ chapitre.commentaire_MJ }}</td>
+                <td>{{ chapitre.mdp_activation }}</td>
+                <td>{{ chapitre.mdp_resolution }}</td>
                 <td>
-                    <button type="button" @click="supprimer(chapitre.id)">Supprimer</button>
+                    <button type="button" @click="store.supprimerChapitre(chapitre.id)">Supprimer</button>
                     <button type="button" @click="dupliquer(chapitre)">Dupliquer</button>
-                    <ChapitreModalModification :chapitre @modifier="modifier"/>
+                    <button type="button" @click="navigation(chapitre.id)">Detail</button>
                 </td>
             </tr>
         </tbody>

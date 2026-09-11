@@ -1,37 +1,26 @@
 <script setup>
-import CampagneModalModification from './CampagneModalModification.vue';
-import CampagneOrgaChapitre from './CampagneOrgaChapitre.vue';
+import useCampagneStore from '@/stores/campagne.js';;
+import CampagneModalAjout from './CampagneModalAjout.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 
-const props = defineProps({
-    campagnes: {
-        type: Array,
-        required: true
-    }
-})
-
-function supprimer(id) {
-    const campagneIndex = props.campagnes.findIndex(({ id: fId }) => (fId === id));
-
-    props.campagnes.splice(campagneIndex, 1)
-}
+const store = useCampagneStore()
 
 function dupliquer(campagne) {
-    props.campagnes.push({
-        ...campagne,
-        id: crypto.randomUUID()
-    })
+    const { nom, statut, description, commentaire_MJ } = campagne
+    store.ajouterCampagne(nom, statut, description, commentaire_MJ)
 }
 
-function modifier(campagne) {
-    const index = props.campagnes.findIndex(c => c.id === campagne.id)
-
-    props.campagnes[index] = campagne
+function navigation(id) {
+  router.push({ name: 'liste-chapitre', params: {idCampagne: id} });
 }
 
 </script>
 
 <template>
+    <CampagneModalAjout @sauvegarde="store.ajouterCampagne"/>
+
     <table border="1">
         <thead>
             <tr>
@@ -44,17 +33,16 @@ function modifier(campagne) {
             </tr>
         </thead>
         <tbody>
-            <tr v-for="campagne in props.campagnes">
+            <tr v-for="campagne in store.liste">
                 <td>{{ campagne.id }}</td>
                 <td>{{ campagne.nom }}</td>
-                <td>{{ campagne.etat }}</td>
+                <td>{{ campagne.statut }}</td>
                 <td>{{ campagne.description }}</td>
-                <td>{{ campagne.commentaire }}</td>
+                <td>{{ campagne.commentaire_MJ }}</td>
                 <td>
-                    <button type="button" @click="supprimer(campagne.id)">Supprimer</button>
+                    <button type="button" @click="store.supprimerCampagne(campagne.id)">Supprimer</button>
                     <button type="button" @click="dupliquer(campagne)">Dupliquer</button>
-                    <CampagneOrgaChapitre :chapitres="campagne.chapitres" />
-                    <CampagneModalModification @modifier="modifier" :campagne></CampagneModalModification>
+                    <button type="button" @click="navigation(campagne.id)">Detail</button>
                 </td>
             </tr>
         </tbody>

@@ -34,7 +34,7 @@ const useCampagneStore = defineStore('campagne', () => {
     liste.value.push(nouvelleCampagne);
   }
 
-  function modifierCampagne(id, nom, description, commentaire_MJ) {
+  function modifierCampagne(id, nom, statut, description, commentaire_MJ) {
     const campagne = _trouverCampagne(id);
 
     if (!campagne) {
@@ -42,6 +42,14 @@ const useCampagneStore = defineStore('campagne', () => {
     }
 
     campagne.nom = nom;
+    if (statut === 'active') {
+      liste.value.forEach((campagneExistante) => {
+        if (campagneExistante.statut === 'active') {
+          campagneExistante.statut = 'disponible';
+        }
+      });
+    }
+    campagne.statut = statut
     campagne.description = description;
     campagne.commentaire_MJ = commentaire_MJ;
   }
