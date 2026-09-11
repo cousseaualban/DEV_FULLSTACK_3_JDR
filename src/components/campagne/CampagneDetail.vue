@@ -43,5 +43,20 @@ function modifier({ target }) {
         <button type="submit">Enregister</button>
     </form>
     <hr>
+    <nav>
+        <RouterLink
+            :to="{ name: 'liste-chapitre', params: { idCampagne: campagne.id } }"
+        >
+            Chapitres
+        </RouterLink>
+
+        |
+
+        <RouterLink
+            :to="{ name: 'liste-contenu', params: { idCampagne: campagne.id } }"
+        >
+            Contenu
+        </RouterLink>
+    </nav>
     <RouterView />
 </template>
