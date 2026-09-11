@@ -44,19 +44,11 @@ function modifier({ target }) {
     </form>
     <hr>
     <nav>
-        <RouterLink
-            :to="{ name: 'liste-chapitre', params: { idCampagne: campagne.id } }"
-        >
-            Chapitres
-        </RouterLink>
-
+        <RouterLink :to="{ name: 'liste-chapitre', params: { idCampagne: campagne.id } }">Chapitres</RouterLink>
         |
-
-        <RouterLink
-            :to="{ name: 'liste-contenu', params: { idCampagne: campagne.id } }"
-        >
-            Contenu
-        </RouterLink>
+        <RouterLink :to="{ name: 'liste-contenu', params: { idCampagne: campagne.id } }">Contenu</RouterLink>
+        |
+        <RouterLink :to="{ name: 'liste-joueur', params: { idCampagne: campagne.id } }">Joueurs</RouterLink>
     </nav>
     <RouterView />
 </template>
