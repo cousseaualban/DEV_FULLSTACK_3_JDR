@@ -8,10 +8,13 @@ import LieuDetail from "@/components/contenu/LieuDetail.vue";
 import ObjetDetail from "@/components/contenu/ObjetDetail.vue";
 import JoueurDetail from "@/components/joueur/JoueurDetail.vue";
 import JoueurListe from "@/components/joueur/JoueurListe.vue";
+import QueteDetail from "@/components/quete/QueteDetail.vue";
+import QueteListe from "@/components/quete/QueteListe.vue";
 import CampagneView from "@/views/CampagneView.vue";
 import ChapitreView from "@/views/ChapitreView.vue";
 import ContenuView from "@/views/ContenuView.vue";
 import JoueurView from "@/views/JoueurView.vue";
+import QueteView from "@/views/QueteView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -26,7 +29,12 @@ const routes = [
       ] },
       { path: 'chapitre', component: ChapitreView, children: [
         { path: '', name: 'liste-chapitre', component: ChapitreListe },
-        { path: 'detail/:idChapitre', name: 'detail-chapitre', component: ChapitreDetail }
+        { path: 'detail/:idChapitre', name: 'detail-chapitre', component: ChapitreDetail, children: [
+          { path: 'quete', component: QueteView, children: [
+            { path: '', name: 'liste-quete', component: QueteListe },
+            { path: 'detail/:idQuete', name: 'detail-quete', component: QueteDetail}
+          ] }
+        ] }
       ]},
       { path: 'joueur', component: JoueurView, children: [
         { path: '', name: 'liste-joueur', component: JoueurListe },

@@ -1,7 +1,6 @@
 <script setup>
 import useJoueurStore from '@/stores/joueur';
 import useLieuStore from '@/stores/lieu';
-import useObjetStore from '@/stores/objet';
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 

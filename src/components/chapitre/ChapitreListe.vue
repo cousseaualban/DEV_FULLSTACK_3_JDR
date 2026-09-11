@@ -11,7 +11,7 @@ const store = useChapitreStore()
 const chapitres = computed(() => (store.chapitresCampagne(route.params.idCampagne)))
 
 function navigation(id) {
-    router.push({ name: 'detail-chapitre', params: { idChapitre: id, idCampagne: route.params.idCampagne } })
+    router.push({ name: 'liste-quete', params: { idChapitre: id, idCampagne: route.params.idCampagne } })
 }
 
 </script>

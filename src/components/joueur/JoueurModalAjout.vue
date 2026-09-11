@@ -54,7 +54,7 @@ function gererSubmit() {
         <br>
         <label>Lieu
             <select v-model="nouveauJoueur.lieu_id">
-                <option value="" disabled>---</option>
+                <option value="">---</option>
                 <option v-for="lieu in lieux" :value="lieu.id">{{ lieu.nom }}</option>
             </select>
         </label>

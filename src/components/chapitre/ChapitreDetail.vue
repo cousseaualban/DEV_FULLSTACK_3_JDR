@@ -73,4 +73,7 @@ function modifier({ target }) {
             Enregister
         </button>
     </form>
+
+    <hr>
+    <RouterView />
 </template>
