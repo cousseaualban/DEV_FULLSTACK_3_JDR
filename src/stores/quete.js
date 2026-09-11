@@ -102,26 +102,6 @@ const useQueteStore = defineStore('quete', () => {
     liste.value.push(nouvelleQuete);
   }
 
-  function assignerQuete(queteId, chapitreId) {
-    const quete = _trouverQuete(queteId);
-
-    if (!quete) {
-      return;
-    }
-
-    quete.chapitre_id = chapitreId;
-  }
-
-  function desassignerQuete(queteId) {
-    const quete = _trouverQuete(queteId);
-
-    if (!quete) {
-      return;
-    }
-
-    quete.chapitre_id = null;
-  }
-
   function supprimerQuete(id) {
     const index = liste.value.findIndex(({ id: queteId }) => (queteId === id));
 
@@ -160,8 +140,6 @@ const useQueteStore = defineStore('quete', () => {
     ajouterQuete,
     modifierQuete,
     dupliquerQuete,
-    assignerQuete,
-    desassignerQuete,
     supprimerQuete,
     changerStatutQuete,
   };

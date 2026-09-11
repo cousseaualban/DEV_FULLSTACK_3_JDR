@@ -96,26 +96,6 @@ const useChapitreStore = defineStore('chapitre', () => {
     liste.value.push(nouveauChapitre);
   }
 
-  function assignerChapitre(chapitreId, campagneId) {
-    const chapitre = _trouverChapitre(chapitreId);
-
-    if (!chapitre) {
-      return;
-    }
-
-    chapitre.campagne_id = campagneId;
-  }
-
-  function desassignerChapitre(chapitreId) {
-    const chapitre = _trouverChapitre(chapitreId);
-
-    if (!chapitre) {
-      return;
-    }
-
-    chapitre.campagne_id = null;
-  }
-
   function supprimerChapitre(id) {
     const index = liste.value.findIndex(({ id: chapitreId }) => (chapitreId === id));
 
@@ -153,8 +133,6 @@ const useChapitreStore = defineStore('chapitre', () => {
     ajouterChapitre,
     modifierChapitre,
     dupliquerChapitre,
-    assignerChapitre,
-    desassignerChapitre,
     supprimerChapitre,
     changerStatutChapitre,
   };
