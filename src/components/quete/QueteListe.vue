@@ -5,6 +5,7 @@ import useQueteStore from '@/stores/quete';
 import QueteModalAjout from './QueteModalAjout.vue';
 import AppButton from '../AppButton.vue';
 import AppTable from '../AppTable.vue';
+import QueteModalDeplacement from './QueteModalDeplacement.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -31,6 +32,7 @@ const columns = [
 
 <template>
     <QueteModalAjout @sauvegarde="store.ajouterQuete" :id-campagne="route.params.idCampagne" :id-chapitre="route.params.idChapitre"/>
+    <QueteModalDeplacement :id-campagne="route.params.idCampagne" :id-chapitre="route.params.idChapitre" />
 
     <AppTable :columns :rows="quetes">
         <template #cell-actions="{ row }">

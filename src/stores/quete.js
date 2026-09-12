@@ -56,6 +56,16 @@ const useQueteStore = defineStore('quete', () => {
     liste.value.push(nouvelleQuete);
   }
 
+  function deplacerQuete(id, nouveauChapitreId) {
+    const quete = _trouverQuete(id);
+
+    if (!quete) {
+      return;
+    }
+
+    quete.chapitre_id = nouveauChapitreId;
+  }
+
   function modifierQuete(
     id,
     chapitre_id,
@@ -142,6 +152,7 @@ const useQueteStore = defineStore('quete', () => {
     dupliquerQuete,
     supprimerQuete,
     changerStatutQuete,
+    deplacerQuete,
   };
 });
 

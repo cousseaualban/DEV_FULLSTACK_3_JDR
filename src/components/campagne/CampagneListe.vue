@@ -4,6 +4,7 @@ import CampagneModalAjout from './CampagneModalAjout.vue';
 import { useRouter } from 'vue-router';
 import AppButton from '../AppButton.vue';
 import AppTable from '../AppTable.vue';
+import CampagneModalImport from './CampagneModalImport.vue';
 
 const router = useRouter()
 
@@ -26,6 +27,7 @@ const columns = [
 
 <template>
     <CampagneModalAjout @sauvegarde="store.ajouterCampagne"/>
+    <CampagneModalImport />
 
     <AppTable :columns="columns" :rows="store.liste">
         <template #cell-actions="{ row }">
@@ -40,6 +42,13 @@ const columns = [
 
             <AppButton @click="navigation(row.id)">
             Detail
+            </AppButton>
+            <AppButton @click="store.definirCampagneActive(row.id)">
+            Définir comme active
+            </AppButton>
+
+            <AppButton @click="store.exporterCampagne(row.id)">
+                Exporter
             </AppButton>
 
         </template>
