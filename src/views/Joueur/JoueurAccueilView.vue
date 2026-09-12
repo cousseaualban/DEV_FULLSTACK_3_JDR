@@ -54,12 +54,6 @@ const lieuActuel = computed(() => {
       </p>
 
       <p>
-        <RouterLink :to="{ name: 'joueur-progression' }">
-          Voir la progression
-        </RouterLink>
-      </p>
-
-      <p>
         <RouterLink :to="{ name: 'joueur-inventaire' }">
           Voir l'inventaire
         </RouterLink>
