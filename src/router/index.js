@@ -41,16 +41,6 @@ const routes = [
     name: "joueur-actions",
     component: ActionsJoueurView,
   },
-  {
-    path: "/joueur/inventaire",
-    name: "joueur-inventaire",
-    component: InventaireView,
-  },
-  {
-    path: "/joueur/actions",
-    name: "joueur-actions",
-    component: ActionsJoueurView,
-  },
 ];
 
 const router = createRouter({

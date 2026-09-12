@@ -13,9 +13,7 @@ defineProps({
   },
 });
 
-const emit = defineEmits({
-  soumettre: (motDePasse) => typeof motDePasse === "string",
-});
+const emit = defineEmits(['soumettre']);
 
 const motDePasse = ref("");
 
