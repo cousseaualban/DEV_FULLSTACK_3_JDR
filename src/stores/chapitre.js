@@ -1,26 +1,25 @@
-import { defineStore } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { defineStore } from "pinia";
+import { computed, ref, watch } from "vue";
+import useQueteStore from "./quete.js";
 
-const useChapitreStore = defineStore('chapitre', () => {
+const useChapitreStore = defineStore("chapitre", () => {
   // - Helpers
-  const LOCALSTORAGEKEY = 'chapitre_store';
+  const LOCALSTORAGEKEY = "chapitre_store";
 
   function _trouverChapitre(id) {
-    return liste.value.find(({ id: chapitreId }) => (chapitreId === id));
+    return liste.value.find(({ id: chapitreId }) => chapitreId === id);
   }
 
   // - States
-  const liste = ref(JSON.parse(localStorage.getItem(LOCALSTORAGEKEY) ?? '[]'));
+  const liste = ref(JSON.parse(localStorage.getItem(LOCALSTORAGEKEY) ?? "[]"));
 
   // - Getters
-  const chapitreSpecifique = computed(() => (
-    (id) => _trouverChapitre(id)
-  ));
+  const chapitreSpecifique = computed(() => (id) => _trouverChapitre(id));
 
-  const chapitresCampagne = computed(() => (
-    (campagneId) => liste.value
-      .filter(({ campagne_id }) => (campagne_id === campagneId))
-  ));
+  const chapitresCampagne = computed(
+    () => (campagneId) =>
+      liste.value.filter(({ campagne_id }) => campagne_id === campagneId),
+  );
 
   // - Actions
   function ajouterChapitre(
@@ -39,7 +38,7 @@ const useChapitreStore = defineStore('chapitre', () => {
       id: crypto.randomUUID(),
       campagne_id,
       nom,
-      statut: statut ?? 'inactif',
+      statut: statut ?? "inactif",
       description,
       commentaire_MJ,
       mdp_activation,
@@ -98,13 +97,23 @@ const useChapitreStore = defineStore('chapitre', () => {
   }
 
   function supprimerChapitre(id) {
-    const index = liste.value.findIndex(({ id: chapitreId }) => (chapitreId === id));
+    const index = liste.value.findIndex(
+      ({ id: chapitreId }) => chapitreId === id,
+    );
 
     if (index === -1) {
       return;
     }
 
+    const queteStore = useQueteStore();
+
     liste.value.splice(index, 1);
+
+    queteStore.liste.splice(
+      0,
+      queteStore.liste.length,
+      ...queteStore.liste.filter(({ chapitre_id }) => chapitre_id !== id),
+    );
   }
 
   function changerStatutChapitre(id, statut) {

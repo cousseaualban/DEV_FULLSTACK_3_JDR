@@ -19,4 +19,3 @@ import Navbar from './components/Navbar.vue'
   padding: 30px;
 }
 </style>
-
