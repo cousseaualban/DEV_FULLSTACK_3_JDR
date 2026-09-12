@@ -101,8 +101,10 @@ const chapitresActifs = computed(() => {
 });
 
 function demanderResolutionChapitre(chapitreId, motDePasse) {
+  const nomChapitre = chapitreStore.chapitreSpecifique(chapitreId)?.nom;
   const resultat = resoudreChapitre(chapitreId, motDePasse);
-  messageResolutionChapitre.value = resultat.message;
+
+  messageResolutionChapitre.value = `${nomChapitre} : ${resultat.message}`;
   resolutionChapitreReussie.value = resultat.succes;
 }
 

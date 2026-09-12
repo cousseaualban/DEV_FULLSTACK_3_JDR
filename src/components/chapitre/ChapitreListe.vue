@@ -1,64 +1,44 @@
 <script setup>
-import ChapitreModalModification from './ChapitreModalModification.vue';
+import useChapitreStore from '@/stores/chapitre.js';
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import ChapitreModalAjout from '../chapitre/ChapitreModalAjout.vue';
+import App from '@/App.vue';
+import AppTable from '../AppTable.vue';
+import AppButton from '../AppButton.vue';
 
+const router = useRouter()
+const route = useRoute()
+const store = useChapitreStore()
 
-const props = defineProps({
-    chapitres: {
-        type: Array,
-        required: true
-    }
-})
+const chapitres = computed(() => (store.chapitresCampagne(route.params.idCampagne)))
 
-function supprimer(id) {
-    const chapitreIndex = props.chapitres.findIndex(({ id: fId }) => (fId === id));
-
-    props.chapitres.splice(chapitreIndex, 1)
+function navigation(id) {
+    router.push({ name: 'liste-quete', params: { idChapitre: id, idCampagne: route.params.idCampagne } })
 }
 
-function dupliquer(chapitre) {
-    props.chapitres.push({
-        ...chapitre,
-        id: crypto.randomUUID()
-    })
-}
-
-function modifier(chapitre) {
-    const index = props.chapitres.findIndex(c => c.id === chapitre.id)
-
-    props.chapitres[index] = chapitre
-}
+const columns = [
+    { key: 'id', label: 'ID' },
+    { key: 'nom', label: 'Nom' },
+    { key: 'statut', label: 'Etat' },
+    { key: 'description', label: 'Description' },
+    { key: 'commentaire_MJ', label: 'Commentaire' },
+    { key: 'mdp_activation', label: 'MDP Activation' },
+    { key: 'mdp_resolution', label: 'MDP Résolution' },
+    { key: 'actions', label: 'Actions' }
+]
 
 </script>
 
 <template>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Nom</th>
-                <th>Etat</th>
-                <th>Description</th>
-                <th>Commentaire</th>
-                <th>MDP Activation</th>
-                <th>MDP Résolution</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="chapitre in props.chapitres">
-                <td>{{ chapitre.id }}</td>
-                <td>{{ chapitre.nom }}</td>
-                <td>{{ chapitre.etat }}</td>
-                <td>{{ chapitre.description }}</td>
-                <td>{{ chapitre.commentaire }}</td>
-                <td>{{ chapitre.mdpAct }}</td>
-                <td>{{ chapitre.mdpRes }}</td>
-                <td>
-                    <button type="button" @click="supprimer(chapitre.id)">Supprimer</button>
-                    <button type="button" @click="dupliquer(chapitre)">Dupliquer</button>
-                    <ChapitreModalModification :chapitre @modifier="modifier"/>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <ChapitreModalAjout @sauvegarde="store.ajouterChapitre" :id-campagne="route.params.idCampagne" />
+
+    <AppTable :columns :rows="chapitres">
+        
+        <template #cell-actions="{ row }">
+            <AppButton @click="store.supprimerChapitre(row.id)">Supprimer</AppButton>
+            <AppButton @click="store.dupliquerChapitre(row.id)">Dupliquer</AppButton>
+            <AppButton @click="navigation(row.id)">Detail</AppButton>
+        </template>
+    </AppTable>
 </template>

@@ -20,13 +20,11 @@ const useQueteStore = defineStore('quete', () => {
   const quetesChapitre = computed(() => (
     (chapitreId) => liste.value
       .filter(({ chapitre_id }) => (chapitre_id === chapitreId))
-      .sort((queteA, queteB) => (queteA.ordre - queteB.ordre))
   ));
 
   const quetesLieu = computed(() => (
     (lieuId) => liste.value
       .filter(({ lieu_id }) => (lieu_id === lieuId))
-      .sort((queteA, queteB) => (queteA.ordre - queteB.ordre))
   ));
 
   // - Actions
@@ -40,7 +38,6 @@ const useQueteStore = defineStore('quete', () => {
     mdp_resolution,
     recompenses_objets,
     recompenses_indices,
-    ordre,
   ) {
     const nouvelleQuete = {
       id: crypto.randomUUID(),
@@ -54,10 +51,19 @@ const useQueteStore = defineStore('quete', () => {
       mdp_resolution,
       recompenses_objets,
       recompenses_indices,
-      ordre,
     };
 
     liste.value.push(nouvelleQuete);
+  }
+
+  function deplacerQuete(id, nouveauChapitreId) {
+    const quete = _trouverQuete(id);
+
+    if (!quete) {
+      return;
+    }
+
+    quete.chapitre_id = nouveauChapitreId;
   }
 
   function modifierQuete(
@@ -89,6 +95,23 @@ const useQueteStore = defineStore('quete', () => {
     quete.recompenses_indices = recompenses_indices;
   }
 
+  function dupliquerQuete(id) {
+    const quete = _trouverQuete(id);
+
+    if (!quete) {
+      return;
+    }
+
+    const nouvelleQuete = {
+      ...quete,
+      id: crypto.randomUUID(),
+      recompenses_objets: [...quete.recompenses_objets],
+      recompenses_indices: [...quete.recompenses_indices],
+    };
+
+    liste.value.push(nouvelleQuete);
+  }
+
   function supprimerQuete(id) {
     const index = liste.value.findIndex(({ id: queteId }) => (queteId === id));
 
@@ -109,54 +132,6 @@ const useQueteStore = defineStore('quete', () => {
     quete.statut = statut;
   }
 
-  function monterQuete(id) {
-    const quete = _trouverQuete(id);
-
-    if (!quete) {
-      return;
-    }
-
-    const quetes = liste.value
-      .filter(({ chapitre_id }) => (chapitre_id === quete.chapitre_id))
-      .sort((queteA, queteB) => (queteA.ordre - queteB.ordre));
-
-    const index = quetes.findIndex(({ id: queteId }) => (queteId === id));
-
-    if (index <= 0) {
-      return;
-    }
-
-    const quetePrecedente = quetes[index - 1];
-    const ordreQuete = quete.ordre;
-
-    quete.ordre = quetePrecedente.ordre;
-    quetePrecedente.ordre = ordreQuete;
-  }
-
-  function descendreQuete(id) {
-    const quete = _trouverQuete(id);
-
-    if (!quete) {
-      return;
-    }
-
-    const quetes = liste.value
-      .filter(({ chapitre_id }) => (chapitre_id === quete.chapitre_id))
-      .sort((queteA, queteB) => (queteA.ordre - queteB.ordre));
-
-    const index = quetes.findIndex(({ id: queteId }) => (queteId === id));
-
-    if (index === -1 || index >= quetes.length - 1) {
-      return;
-    }
-
-    const queteSuivante = quetes[index + 1];
-    const ordreQuete = quete.ordre;
-
-    quete.ordre = queteSuivante.ordre;
-    queteSuivante.ordre = ordreQuete;
-  }
-
   // - Watcher
   watch(
     liste,
@@ -174,10 +149,10 @@ const useQueteStore = defineStore('quete', () => {
     quetesLieu,
     ajouterQuete,
     modifierQuete,
+    dupliquerQuete,
     supprimerQuete,
     changerStatutQuete,
-    monterQuete,
-    descendreQuete,
+    deplacerQuete,
   };
 });
 

@@ -1,62 +1,56 @@
 <script setup>
-import CampagneModalModification from './CampagneModalModification.vue';
-import CampagneOrgaChapitre from './CampagneOrgaChapitre.vue';
+import useCampagneStore from '@/stores/campagne.js';;
+import CampagneModalAjout from './CampagneModalAjout.vue';
+import { useRouter } from 'vue-router';
+import AppButton from '../AppButton.vue';
+import AppTable from '../AppTable.vue';
+import CampagneModalImport from './CampagneModalImport.vue';
 
+const router = useRouter()
 
-const props = defineProps({
-    campagnes: {
-        type: Array,
-        required: true
-    }
-})
+const store = useCampagneStore()
 
-function supprimer(id) {
-    const campagneIndex = props.campagnes.findIndex(({ id: fId }) => (fId === id));
-
-    props.campagnes.splice(campagneIndex, 1)
+function navigation(id) {
+  router.push({ name: 'liste-chapitre', params: {idCampagne: id} });
 }
 
-function dupliquer(campagne) {
-    props.campagnes.push({
-        ...campagne,
-        id: crypto.randomUUID()
-    })
-}
-
-function modifier(campagne) {
-    const index = props.campagnes.findIndex(c => c.id === campagne.id)
-
-    props.campagnes[index] = campagne
-}
+const columns = [
+    { key: 'id', label: 'ID' },
+    { key: 'nom', label: 'Nom' },
+    { key: 'statut', label: 'Etat' },
+    { key: 'description', label: 'Description' },
+    { key: 'commentaire_MJ', label: 'Commentaire' },
+    { key: 'actions', label: 'Actions' }
+]
 
 </script>
 
 <template>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Nom</th>
-                <th>Etat</th>
-                <th>Description</th>
-                <th>Commentaire</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="campagne in props.campagnes">
-                <td>{{ campagne.id }}</td>
-                <td>{{ campagne.nom }}</td>
-                <td>{{ campagne.etat }}</td>
-                <td>{{ campagne.description }}</td>
-                <td>{{ campagne.commentaire }}</td>
-                <td>
-                    <button type="button" @click="supprimer(campagne.id)">Supprimer</button>
-                    <button type="button" @click="dupliquer(campagne)">Dupliquer</button>
-                    <CampagneOrgaChapitre :chapitres="campagne.chapitres" />
-                    <CampagneModalModification @modifier="modifier" :campagne></CampagneModalModification>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <CampagneModalAjout @sauvegarde="store.ajouterCampagne"/>
+    <CampagneModalImport />
+
+    <AppTable :columns="columns" :rows="store.liste">
+        <template #cell-actions="{ row }">
+
+            <AppButton @click="store.supprimerCampagne(row.id)">
+            Supprimer
+            </AppButton>
+
+            <AppButton @click="store.dupliquerCampagne(row.id)">
+            Dupliquer
+            </AppButton>
+
+            <AppButton @click="navigation(row.id)">
+            Detail
+            </AppButton>
+            <AppButton @click="store.definirCampagneActive(row.id)">
+            Définir comme active
+            </AppButton>
+
+            <AppButton @click="store.exporterCampagne(row.id)">
+                Exporter
+            </AppButton>
+
+        </template>
+    </AppTable>
 </template>

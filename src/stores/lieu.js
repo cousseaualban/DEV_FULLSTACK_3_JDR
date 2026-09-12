@@ -57,6 +57,21 @@ const useLieuStore = defineStore('lieu', () => {
     lieu.commentaire_MJ = commentaire_MJ;
   }
 
+  function dupliquerLieu(id) {
+    const lieu = _trouverLieu(id);
+
+    if (!lieu) {
+      return;
+    }
+
+    const nouveauLieu = {
+      ...lieu,
+      id: crypto.randomUUID(),
+    };
+
+    liste.value.push(nouveauLieu);
+  }
+
   function supprimerLieu(id) {
     const index = liste.value.findIndex(({ id: lieuId }) => (lieuId === id));
 
@@ -83,6 +98,7 @@ const useLieuStore = defineStore('lieu', () => {
     lieuxCampagne,
     ajouterLieu,
     modifierLieu,
+    dupliquerLieu,
     supprimerLieu,
   };
 });
