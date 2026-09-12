@@ -29,46 +29,14 @@
         <div class="dashboard-card">
           <div class="icon">📖</div>
 
-          <h2>Chapitres</h2>
+          <h2>Campagne en cours</h2>
 
           <p>
-            Organisez les chapitres de votre aventure.
+            Organisez et suivez votre campagne en cours.
           </p>
 
-          <AppButton>
-            Gérer les chapitres
-          </AppButton>
-        </div>
-      </AppCard>
-
-      <AppCard>
-        <div class="dashboard-card">
-          <div class="icon">⚔️</div>
-
-          <h2>Quêtes</h2>
-
-          <p>
-            Créez et gérez les quêtes de votre campagne.
-          </p>
-
-          <AppButton>
-            Gérer les quêtes
-          </AppButton>
-        </div>
-      </AppCard>
-
-      <AppCard>
-        <div class="dashboard-card">
-          <div class="icon">👥</div>
-
-          <h2>Joueurs</h2>
-
-          <p>
-            Consultez et gérez les joueurs de votre campagne.
-          </p>
-
-          <AppButton>
-            Gérer les joueurs
+          <AppButton to="/campagne-en-cours">
+            Gérer la campagne en cours
           </AppButton>
         </div>
       </AppCard>

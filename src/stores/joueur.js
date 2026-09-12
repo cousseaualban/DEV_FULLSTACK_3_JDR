@@ -188,6 +188,20 @@ const useJoueurStore = defineStore('joueur', () => {
     });
   }
 
+  function retirerIndiceATous(campagneId, indiceId) {
+    const joueurs = joueursCampagne.value(campagneId);
+
+    joueurs.forEach((joueur) => {
+      const index = joueur.inventaire_indices.findIndex(
+        (id) => (id === indiceId),
+      );
+
+      if (index !== -1) {
+        joueur.inventaire_indices.splice(index, 1);
+      }
+    });
+  }
+
   // - Watcher
   watch(
     liste,
@@ -214,6 +228,7 @@ const useJoueurStore = defineStore('joueur', () => {
     donnerIndice,
     retirerIndice,
     donnerIndiceATous,
+    retirerIndiceATous,
   };
 });
 

@@ -1,25 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomeView from '../views/HomeView.vue'
-import MjHomeView from '../views/mj/MjHomeView.vue'
-import PlayerHomeView from '../views/player/PlayerHomeView.vue'
-import CampagneDetail from "@/components/campagne/CampagneDetail.vue";
-import CampagneListe from "@/components/campagne/CampagneListe.vue";
-import ChapitreDetail from "@/components/chapitre/ChapitreDetail.vue";
-import ChapitreListe from "@/components/chapitre/ChapitreListe.vue";
-import ContenuListe from "@/components/contenu/ContenuListe.vue";
-import IndiceDetail from "@/components/contenu/IndiceDetail.vue";
-import LieuDetail from "@/components/contenu/LieuDetail.vue";
-import ObjetDetail from "@/components/contenu/ObjetDetail.vue";
-import JoueurDetail from "@/components/joueur/JoueurDetail.vue";
-import JoueurListe from "@/components/joueur/JoueurListe.vue";
-import QueteDetail from "@/components/quete/QueteDetail.vue";
-import QueteListe from "@/components/quete/QueteListe.vue";
-import CampagneView from "@/views/CampagneView.vue";
-import ChapitreView from "@/views/ChapitreView.vue";
-import ContenuView from "@/views/ContenuView.vue";
-import JoueurView from "@/views/JoueurView.vue";
-import QueteView from "@/views/QueteView.vue";
+import CampagneDetail from '@/components/campagne/CampagneDetail.vue';
+import CampagneListe from '@/components/campagne/CampagneListe.vue';
+import CampagneView from '@/views/mj/CampagneView.vue';
+import PlayerHomeView from '@/views/player/PlayerHomeView.vue';
+import HomeView from '@/views/HomeView.vue';
+import MjHomeView from '@/views/mj/MjHomeView.vue';
+import ContenuView from '@/views/mj/ContenuView.vue';
+import ContenuListe from '@/components/contenu/ContenuListe.vue';
+import ObjetDetail from '@/components/contenu/ObjetDetail.vue';
+import LieuDetail from '@/components/contenu/LieuDetail.vue';
+import IndiceDetail from '@/components/contenu/IndiceDetail.vue';
+import ChapitreView from '@/views/mj/ChapitreView.vue';
+import ChapitreListe from '@/components/chapitre/ChapitreListe.vue';
+import ChapitreDetail from '@/components/chapitre/ChapitreDetail.vue';
+import QueteView from '@/views/mj/QueteView.vue';
+import QueteListe from '@/components/quete/QueteListe.vue';
+import QueteDetail from '@/components/quete/QueteDetail.vue';
+import JoueurView from '@/views/mj/JoueurView.vue';
+import JoueurListe from '@/components/joueur/JoueurListe.vue';
+import JoueurDetail from '@/components/joueur/JoueurDetail.vue';
+import CampagneEnCoursView from '@/views/mj/CampagneEnCoursView.vue';
+import CampagneActiveChapitre from '@/components/campagne-active/CampagneActiveChapitre.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -48,7 +50,7 @@ const router = createRouter({
           { path: 'detail-objet/:idObjet', name: 'detail-objet', component: ObjetDetail },
           { path: 'detail-lieu/:idLieu', name: 'detail-lieu', component: LieuDetail },
           { path: 'detail-indice/:idIndice', name: 'detail-indice', component: IndiceDetail }
-        ] },
+        ]},
         { path: 'chapitre', component: ChapitreView, children: [
           { path: '', name: 'liste-chapitre', component: ChapitreListe },
           { path: 'detail/:idChapitre', name: 'detail-chapitre', component: ChapitreDetail, children: [
@@ -63,7 +65,11 @@ const router = createRouter({
           { path: 'detail/:idJoueur', name: 'detail-joueur', component: JoueurDetail }
         ]}
       ]}
-    ] },
+    ]},
+    { path: '/campagne-en-cours', component: CampagneEnCoursView, children: [
+      { path: '', name: 'campagne-en-cours-chapitre', component: CampagneActiveChapitre },
+    ]
+    }
   ]
 })
 
